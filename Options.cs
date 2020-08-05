@@ -16,8 +16,8 @@ namespace NugetBulkDoer
         [Option("previews", HelpText = "Unlist pre-release package versions.")]
         public bool Previews { get; set; }
 
-        [Option("packageName", Required = true, HelpText = "Provide the name of your package. \n" + 
+        [Option("packageID", Required = true, HelpText = "Provide the name of your package. \n" + 
             "Version unlisting will apply only to the package specified.")]
-        public string PackageName { get; set; }
+        public string PackageID { get; set; }
     }
 }

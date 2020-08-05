@@ -39,21 +39,22 @@ namespace NugetBulkDoer
             var settings = Settings.LoadDefaultSettings(".");
             var gpfPath = SettingsUtility.GetGlobalPackagesFolder(settings);
 
-            string PackageName = options.PackageName;
+            string PackageID = options.PackageID;
+            string ApiKey = "placeholder";
 
             if (options.All)
             {
-                UnlistAll(gpfPath, PackageName);
+                UnlistAll(PackageID, ApiKey);
             }
             else if (options.Range)
             {
-                UnlistRange(gpfPath, PackageName);
+                UnlistRange(PackageID, ApiKey);
             } else if (options.Previews)
             {
-                UnlistPreviews(gpfPath, PackageName);
+                UnlistPreviews(PackageID, ApiKey);
 			} else 
             {
-                UnlistSearch(gpfPath, PackageName);
+                UnlistSearch(PackageID, ApiKey);
 			}
         }
 
@@ -76,7 +77,15 @@ namespace NugetBulkDoer
             return setting;
         }
         
-        public static void UnlistAll(string Path, string packageName)
+        /// <summary>
+        ///     Finds all package versions that are currently not unlisted
+        ///     Confirms the selection with the user
+        ///     Unlists all package versions
+        ///     Output confirmation
+        /// </summary>
+        /// <param name="PackageID">Package to be modified</param>
+        /// <param name="ApiKey">Credentials for package version modification</param>
+        public static void UnlistAll(string PackageID, string ApiKey)
         {
             try
             {
@@ -87,8 +96,16 @@ namespace NugetBulkDoer
             
 			}
 		}
-
-        public static void UnlistRange(string Path, string packageName)
+        /// <summary>
+        ///     Queries user for a range in the format "first version - second version" (inclusive)
+        ///     Finds all package versions that are currently not unlisted and falls into that range
+        ///     Confirms the selection with the user
+        ///     Unlists selected package versions 
+        ///     Output confirmation
+        /// </summary>
+        /// <param name="PackageID">Package to be modified</param>
+        /// <param name="ApiKey">Credentials for package version modification</param>
+        public static void UnlistRange(string PackageID, string ApiKey)
         {
             try
             {
@@ -99,8 +116,16 @@ namespace NugetBulkDoer
             
 			}
 		}
-
-        public static void UnlistPreviews(string Path, string packageName)
+        /// <summary>
+        ///     Finds all package versions that are currently not unlisted and contains the character '-'
+        ///         Denotes a pre-release version
+        ///     Confirms the selection with the user
+        ///     Unlists all pre-release package versions
+        ///     Output confirmation
+        /// </summary>
+        /// <param name="PackageID">Package to be modified</param>
+        /// <param name="ApiKey">Credentials for package version modification</param>
+        public static void UnlistPreviews(string PackageID, string ApiKey)
         {
             try
             {
@@ -111,8 +136,16 @@ namespace NugetBulkDoer
             
 			}
 		}
-
-        public static void UnlistSearch(string Path, string packageName)
+        /// <summary>
+        ///     Queries user for keyword
+        ///     Finds all package versions that are currently not unlisted and contains the keyword
+        ///     Confirms the selection with the user
+        ///     Unlists selected package versions
+        ///     Output confirmation
+        /// </summary>
+        /// <param name="PackageID">Package to be modified</param>
+        /// <param name="ApiKey">Credentials for package version modification</param>
+        public static void UnlistSearch(string PackageID, string ApiKey)
         {
             try
             {
@@ -123,8 +156,13 @@ namespace NugetBulkDoer
             
 			}
 		}
-
-        public static Boolean Confirm(string Path, string packageName)
+        /// <summary>
+        ///   Prints to console all package versions to be unlisted
+        ///   Returns a boolean based on whether user confirms or not
+        /// </summary>
+        /// <param name="SelectedPackages">Package versions to be unlisted</param>
+        /// <returns></returns>
+        public static Boolean Confirm(string SelectedPackages)
         {
             try
             {
