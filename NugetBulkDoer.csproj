@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>NugetBulkDoer</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Jiachen Jiang</Authors>
+    <Company>Microsoft</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>
