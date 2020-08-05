@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CommandLine;
 
-namespace NuGetUnlister
+namespace NugetBulkDoer
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class Options
@@ -18,6 +18,6 @@ namespace NuGetUnlister
 
         [Option("packageName", Required = true, HelpText = "Provide the name of your package. \n" + 
             "Version unlisting will apply only to the package specified.")]
-        public str PackageName { get; set; }
+        public string PackageName { get; set; }
     }
 }

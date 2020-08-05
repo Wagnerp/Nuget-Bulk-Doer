@@ -39,7 +39,7 @@ namespace NugetBulkDoer
             var settings = Settings.LoadDefaultSettings(".");
             var gpfPath = SettingsUtility.GetGlobalPackagesFolder(settings);
 
-            str PackageName = options.packageName;
+            string PackageName = options.PackageName;
 
             if (options.All)
             {
@@ -75,5 +75,65 @@ namespace NugetBulkDoer
 
             return setting;
         }
+        
+        public static void UnlistAll(string Path, string packageName)
+        {
+            try
+            {
+            
+			}
+            catch (System.Exception ex)
+            {
+            
+			}
+		}
+
+        public static void UnlistRange(string Path, string packageName)
+        {
+            try
+            {
+            
+			}
+            catch (System.Exception ex)
+            {
+            
+			}
+		}
+
+        public static void UnlistPreviews(string Path, string packageName)
+        {
+            try
+            {
+            
+			}
+            catch (System.Exception ex)
+            {
+            
+			}
+		}
+
+        public static void UnlistSearch(string Path, string packageName)
+        {
+            try
+            {
+            
+			}
+            catch (System.Exception ex)
+            {
+            
+			}
+		}
+
+        public static Boolean Confirm(string Path, string packageName)
+        {
+            try
+            {
+            
+			}
+            catch (System.Exception ex)
+            {
+            
+			}
+		}
     }
 }

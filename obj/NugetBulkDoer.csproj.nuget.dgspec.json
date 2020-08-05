@@ -1,29 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jiachen\\documents\\work\\NugetBulkDoer\\NugetBulkDoer.csproj": {}
+    "c:\\Users\\Jiachen\\Documents\\GitHub\\Nuget-Bulk-Doer\\NugetBulkDoer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jiachen\\documents\\work\\NugetBulkDoer\\NugetBulkDoer.csproj": {
+    "c:\\Users\\Jiachen\\Documents\\GitHub\\Nuget-Bulk-Doer\\NugetBulkDoer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jiachen\\documents\\work\\NugetBulkDoer\\NugetBulkDoer.csproj",
+        "projectUniqueName": "c:\\Users\\Jiachen\\Documents\\GitHub\\Nuget-Bulk-Doer\\NugetBulkDoer.csproj",
         "projectName": "NugetBulkDoer",
-        "projectPath": "C:\\Users\\Jiachen\\documents\\work\\NugetBulkDoer\\NugetBulkDoer.csproj",
+        "projectPath": "c:\\Users\\Jiachen\\Documents\\GitHub\\Nuget-Bulk-Doer\\NugetBulkDoer.csproj",
         "packagesPath": "C:\\Users\\Jiachen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jiachen\\documents\\work\\NugetBulkDoer\\obj\\",
+        "outputPath": "c:\\Users\\Jiachen\\Documents\\GitHub\\Nuget-Bulk-Doer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jiachen\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netstandard2.0"
+          "netcoreapp2.1"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netstandard2.0": {
+          "netcoreapp2.1": {
             "projectReferences": {}
           }
         },
@@ -34,13 +34,21 @@
         }
       },
       "frameworks": {
-        "netstandard2.0": {
+        "netcoreapp2.1": {
           "dependencies": {
-            "NETStandard.Library": {
+            "CommandLineParser": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.0.3, )",
+              "version": "[2.1.0, )",
               "autoReferenced": true
+            },
+            "NuGet.Configuration": {
+              "target": "Package",
+              "version": "[*, )"
             }
           },
           "imports": [
