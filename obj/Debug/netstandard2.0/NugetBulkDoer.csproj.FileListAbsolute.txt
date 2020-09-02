@@ -1,9 +1,0 @@
-C:\Users\Jiachen\documents\work\NugetBulkDoer\bin\Debug\netstandard2.0\NugetBulkDoer.deps.json
-C:\Users\Jiachen\documents\work\NugetBulkDoer\bin\Debug\netstandard2.0\NugetBulkDoer.dll
-C:\Users\Jiachen\documents\work\NugetBulkDoer\bin\Debug\netstandard2.0\NugetBulkDoer.pdb
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.csprojAssemblyReference.cache
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.AssemblyInfoInputs.cache
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.AssemblyInfo.cs
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.csproj.CoreCompileInputs.cache
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.dll
-C:\Users\Jiachen\documents\work\NugetBulkDoer\obj\Debug\netstandard2.0\NugetBulkDoer.pdb
