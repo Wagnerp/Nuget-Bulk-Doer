@@ -4,6 +4,16 @@ using System.IO;
 using CommandLine;
 using System.ComponentModel;
 using NuGet.Configuration;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using NuGet.Common;
+using NuGet.Frameworks;
+using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
+using NuGet.Versioning;
 
 namespace NugetBulkDoer
 {
@@ -19,10 +29,10 @@ namespace NugetBulkDoer
             }
 
             Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(options => Execute(options));
+                .WithParsed(options => await Execute(options));
         }
 
-        public static void Execute(Options options)
+        public static async Task Execute(Options options)
         {
             if (CheckDisableLastAccess() != 2)
             {
@@ -42,20 +52,38 @@ namespace NugetBulkDoer
             string PackageID = options.PackageID;
             string ApiKey = "placeholder";
 
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
+
+            SourceCacheContext cache = new SourceCacheContext();
+            SourceRepository repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+            FindPackageByIdResource resource = await repository.GetResourceAsync<FindPackageByIdResource>();
+
+            IEnumerable<NuGetVersion> versions = await resource.GetAllVersionsAsync(
+                "Newtonsoft.Json",
+                cache,
+                logger,
+                cancellationToken);
+
+            /* foreach (NuGetVersion version in versions)
+            {
+                Console.WriteLine($"Found version {version}");
+            }
+
             if (options.All)
             {
-                UnlistAll(PackageID, ApiKey);
+                UnlistAll(PackageID, ApiKey, versions);
             }
             else if (options.Range)
             {
-                UnlistRange(PackageID, ApiKey);
+                UnlistRange(PackageID, ApiKey, versions);
             } else if (options.Previews)
             {
-                UnlistPreviews(PackageID, ApiKey);
+                UnlistPreviews(PackageID, ApiKey, versions);
 			} else 
             {
-                UnlistSearch(PackageID, ApiKey);
-			}
+                UnlistSearch(PackageID, ApiKey, versions);
+			} */
         }
 
         public static int CheckDisableLastAccess()
@@ -85,16 +113,9 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="PackageID">Package to be modified</param>
         /// <param name="ApiKey">Credentials for package version modification</param>
-        public static void UnlistAll(string PackageID, string ApiKey)
+        public static void UnlistAll(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            try
-            {
-            
-			}
-            catch (System.Exception ex)
-            {
-            
-			}
+/*  */
 		}
         /// <summary>
         ///     Queries user for a range in the format "first version - second version" (inclusive)
@@ -105,16 +126,9 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="PackageID">Package to be modified</param>
         /// <param name="ApiKey">Credentials for package version modification</param>
-        public static void UnlistRange(string PackageID, string ApiKey)
+        public static void UnlistRange(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            try
-            {
-            
-			}
-            catch (System.Exception ex)
-            {
-            
-			}
+
 		}
         /// <summary>
         ///     Finds all package versions that are currently not unlisted and contains the character '-'
@@ -125,16 +139,9 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="PackageID">Package to be modified</param>
         /// <param name="ApiKey">Credentials for package version modification</param>
-        public static void UnlistPreviews(string PackageID, string ApiKey)
+        public static void UnlistPreviews(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            try
-            {
-            
-			}
-            catch (System.Exception ex)
-            {
-            
-			}
+
 		}
         /// <summary>
         ///     Queries user for keyword
@@ -145,16 +152,9 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="PackageID">Package to be modified</param>
         /// <param name="ApiKey">Credentials for package version modification</param>
-        public static void UnlistSearch(string PackageID, string ApiKey)
+        public static void UnlistSearch(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            try
-            {
-            
-			}
-            catch (System.Exception ex)
-            {
-            
-			}
+
 		}
         /// <summary>
         ///   Prints to console all package versions to be unlisted
@@ -162,7 +162,7 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="SelectedPackages">Package versions to be unlisted</param>
         /// <returns></returns>
-        public static Boolean Confirm(string SelectedPackages)
+        /* public static Boolean Confirm(string SelectedPackages)
         {
             try
             {
@@ -172,6 +172,6 @@ namespace NugetBulkDoer
             {
             
 			}
-		}
+		} */
     }
 }
