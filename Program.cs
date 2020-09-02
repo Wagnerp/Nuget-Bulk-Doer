@@ -19,7 +19,7 @@ namespace NugetBulkDoer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
             if (!osNameAndVersion.Contains("Windows"))
