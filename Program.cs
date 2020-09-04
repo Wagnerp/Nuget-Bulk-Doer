@@ -19,7 +19,7 @@ namespace NugetBulkDoer
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
             if (!osNameAndVersion.Contains("Windows"))
@@ -29,7 +29,7 @@ namespace NugetBulkDoer
             }
 
             Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(options => await Execute(options));
+                .WithParsed(options => Execute(options));
         }
 
         public static async Task Execute(Options options)
@@ -65,7 +65,7 @@ namespace NugetBulkDoer
                 logger,
                 cancellationToken);
 
-            /* foreach (NuGetVersion version in versions)
+             foreach (NuGetVersion version in versions)
             {
                 Console.WriteLine($"Found version {version}");
             }
@@ -83,7 +83,7 @@ namespace NugetBulkDoer
 			} else 
             {
                 UnlistSearch(PackageID, ApiKey, versions);
-			} */
+			} 
         }
 
         public static int CheckDisableLastAccess()
