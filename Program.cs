@@ -30,7 +30,7 @@ namespace NugetBulkDoer
         {
 
             string PackageID = options.PackageID;
-            string ApiKey = "oy2d7y2i6cyj42qohabqxb2pthgy72ye5abpp2ptvlgsn4";
+            string ApiKey = "oy2jwb3ean3d54y25kdaqdq4ewdozevexk4y67d7aybosq";
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
 
@@ -55,24 +55,9 @@ namespace NugetBulkDoer
                 UnlistPreviews(PackageID, ApiKey, versions);
 			} else 
             {
-                UnlistSearch(PackageID, ApiKey, versions);
+                ///UnlistSearch(PackageID, ApiKey, versions);
 			} 
         }
-
-                /// <summary>
-        ///   Unlists packages
-        ///   Returns a boolean based on whether user confirms or not
-        /// </summary>
-        /// <param name="SelectedPackages">Package versions to be unlisted</param>
-        /// <returns></returns>
-          public static async Task Delete(string ApiKey, string PackageID, HashSet<NuGetVersion> toUnlist)
-        {
-            PackageUpdateResource resource = await repository.GetResourceAsync<PackageUpdateResource>();
-            foreach (NuGetVersion version in toUnlist)
-            {
- 
-            }
-		} 
 
         /// <summary>
         ///   Prints to console all package versions to be unlisted
@@ -102,10 +87,20 @@ namespace NugetBulkDoer
 /*  */      foreach (NuGetVersion version in versions)
             {
                 Console.WriteLine($"Found version {version}");
-                /// delete
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardOutput = true;
+                startInfo.FileName = "CMD.exe";
+                process.StartInfo = startInfo;
+                startInfo.Arguments = $"/C dotnet nuget delete {PackageID} {version} -k --non-interactive oy2jwb3ean3d54y25kdaqdq4ewdozevexk4y67d7aybosq -s https://www.nuget.org";
+                process.Start();
+                string output = process.StandardOutput.ReadToEnd();
+                Console.WriteLine(output);
+                process.WaitForExit();
             }
 		}
-        /// <summary>
+/*         /// <summary>
         ///     Queries user for a range in the format "first version - second version" (inclusive)
         ///     Finds all package versions that are currently not unlisted and falls into that range
         ///     Confirms the selection with the user
@@ -121,7 +116,7 @@ namespace NugetBulkDoer
                 Console.WriteLine($"Found version {version}");
             } 
 
-		} 
+		}  */
         /// <summary>
         ///     Finds all package versions that are currently not unlisted and contains the character '-'
         ///         Denotes a pre-release version
@@ -149,32 +144,5 @@ namespace NugetBulkDoer
             }
 
 		}
-/*         /// <summary>
-        ///     Queries user for keyword
-        ///     Finds all package versions that are currently not unlisted and contains the keyword
-        ///     Confirms the selection with the user
-        ///     Unlists selected package versions
-        ///     Output confirmation
-        /// </summary>
-        /// <param name="PackageID">Package to be modified</param>
-        /// <param name="ApiKey">Credentials for package version modification</param>
-        public static void UnlistSearch(string Keyword, string ApiKey, IEnumerable<NuGetVersion> versions)
-        {
-            HashSet<NuGetVersion> results = new HashSet<NuGetVersion>();
-
-            foreach (NuGetVersion version in versions)
-            {
-                if (version.ToString().Contains(Keyword))
-                {
-                    results.Add(version);
-                }
-
-                /* if (Confirm(results))
-                {
-                    Delete(results)
-                } */
-            }
-
-		} */
     }
 }
