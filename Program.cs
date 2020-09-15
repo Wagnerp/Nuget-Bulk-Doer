@@ -21,38 +21,16 @@ namespace NugetBulkDoer
     {
         public static async Task Main(string[] args)
         {
-            Console.Write("EnteredLine");
-            var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
-            if (!osNameAndVersion.Contains("Windows"))
-            {
-                Console.WriteLine("This tool is currently only available for Windows, sorry for the inconvenience!\n");
-                return;
-            }
+            Console.WriteLine("Got here");
             CommandLine.Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(async (options) => await Execute(options));
         }
 
         public static async Task Execute(Options options)
         {
-            Console.WriteLine("Entered execute");
-            if (CheckDisableLastAccess() != 2)
-            {
-                Console.Write("\nYour Last Access updates are not currently enabled so this tool will not work. \n" +
-                    "To enable Last Access updates, run powershell as administrator and input:\n\n" +
-                    "\tfsutil behavior set disablelastaccess 2\n\n" +
-                    "You may be asked to reboot for the settings change to take effect\n\n" +
-                    "Note: Last usage time of packages will only be tracked once the setting is enabled.\n" +
-                    "As such, last package usage will only be determined from the enable date onward.\n" +
-                    "For further information view documentation at https://github.com/chgill-MSFT/NuGetCleaner \n");
-                return;
-            }
-
-            var settings = Settings.LoadDefaultSettings(".");
-            var gpfPath = SettingsUtility.GetGlobalPackagesFolder(settings);
 
             string PackageID = options.PackageID;
-            string ApiKey = "placeholder";
-            Console.Write(PackageID);
+            string ApiKey = "oy2d7y2i6cyj42qohabqxb2pthgy72ye5abpp2ptvlgsn4";
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
 
@@ -64,11 +42,6 @@ namespace NugetBulkDoer
                 cache,
                 logger,
                 cancellationToken);
-            Console.Write("did the calls");
-             foreach (NuGetVersion version in versions)
-            {
-                Console.WriteLine($"Found version {version}");
-            }
 
             if (options.All)
             {
@@ -92,13 +65,14 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="SelectedPackages">Package versions to be unlisted</param>
         /// <returns></returns>
-/*          public static Task Delete(HashSet<NuGetVersion> toUnlist)
+          public static async Task Delete(string ApiKey, string PackageID, HashSet<NuGetVersion> toUnlist)
         {
+            PackageUpdateResource resource = await repository.GetResourceAsync<PackageUpdateResource>();
             foreach (NuGetVersion version in toUnlist)
             {
-                ///delete
+ 
             }
-		} */
+		} 
 
         /// <summary>
         ///   Prints to console all package versions to be unlisted
@@ -114,25 +88,6 @@ namespace NugetBulkDoer
             }
             Console.WriteLine($"Please confirm to unlist the above versions (Y/N)");
 		}  */
-
-        public static int CheckDisableLastAccess()
-        {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.FileName = "CMD.exe";
-            startInfo.Arguments = "/c fsutil behavior query disablelastaccess";
-            process.StartInfo = startInfo;
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            string[] outputArray = output.Split(" ");
-            int setting = Convert.ToInt32(outputArray[2]);
-
-            return setting;
-        }
         
         /// <summary>
         ///     Finds all package versions that are currently not unlisted
@@ -159,14 +114,14 @@ namespace NugetBulkDoer
         /// </summary>
         /// <param name="PackageID">Package to be modified</param>
         /// <param name="ApiKey">Credentials for package version modification</param>
-/*         public static void UnlistRange(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
+         public static void UnlistRange(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
             foreach (NuGetVersion version in versions)
             {
                 Console.WriteLine($"Found version {version}");
             } 
 
-		} */
+		} 
         /// <summary>
         ///     Finds all package versions that are currently not unlisted and contains the character '-'
         ///         Denotes a pre-release version
@@ -178,7 +133,7 @@ namespace NugetBulkDoer
         /// <param name="ApiKey">Credentials for package version modification</param>
         public static void UnlistPreviews(string PackageID, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            HashSet<NuGetVersion> previews = new HashSet<NuGetVersion>;
+            HashSet<NuGetVersion> previews = new HashSet<NuGetVersion>();
 
             foreach (NuGetVersion version in versions)
             {
@@ -194,7 +149,7 @@ namespace NugetBulkDoer
             }
 
 		}
-        /// <summary>
+/*         /// <summary>
         ///     Queries user for keyword
         ///     Finds all package versions that are currently not unlisted and contains the keyword
         ///     Confirms the selection with the user
@@ -205,7 +160,7 @@ namespace NugetBulkDoer
         /// <param name="ApiKey">Credentials for package version modification</param>
         public static void UnlistSearch(string Keyword, string ApiKey, IEnumerable<NuGetVersion> versions)
         {
-            HashSet<NuGetVersion> results = new HashSet<NuGetVersion>;
+            HashSet<NuGetVersion> results = new HashSet<NuGetVersion>();
 
             foreach (NuGetVersion version in versions)
             {
@@ -220,6 +175,6 @@ namespace NugetBulkDoer
                 } */
             }
 
-		}
+		} */
     }
 }
