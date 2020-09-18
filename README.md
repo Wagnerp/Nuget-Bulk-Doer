@@ -11,10 +11,10 @@ Want to unlist some or all of your project versions in one easy interactive tool
 `nugetbulkdoer` is available as a .NET Core Global Tool:
 
 ```bash
-dotnet tool install --global NuGetCleaner --version 1.0.7
+dotnet tool install --global NugetBulkDoer --version 2.2.0
 ```
 The latest version can also be downloaded directly from NuGet.org at:
-https://www.nuget.org/packages/NuGetCleaner/
+https://www.nuget.org/packages/NugetBulkDoer/
 
 ## Prerequisites
 
