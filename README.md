@@ -85,9 +85,9 @@ Output from other process
 Output from other process
 ```
 
-### All
+### Previews
 
-##### Example 2: Unlist all preview versions.
+##### Example 3: Unlist all preview versions.
 
 `nugetbulkdoer` will find all preview versions, as denoted by the reserved character `-`.
 
