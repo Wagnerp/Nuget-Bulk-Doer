@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Diagnostics;
 using System.IO;
 using CommandLine;
 using System.Linq;
@@ -27,9 +28,9 @@ namespace NugetBulkDoer
         public static async Task Execute(Options options)
         {
             Console.Write($"Provide the API key associated with this package. \n" + 
-            "Make sure you have created the key with unlisting privileges. \n");
+            "Make sure you have created the key with unlisting privileges. \n >");
             string ApiKey = Console.ReadLine();            
-            Console.Write($"Provide the ID of the package you wish to unlist from. \n");
+            Console.Write($"Provide the ID of the package you wish to unlist from. \n >");
             string PackageID = Console.ReadLine();
 
             ILogger logger = NullLogger.Instance;
@@ -44,7 +45,7 @@ namespace NugetBulkDoer
                 logger,
                 cancellationToken);
 
-            Console.Write($"Which versions would you like to unlist? (Options: some/all/previews) \n");
+            Console.Write($"Which versions would you like to unlist? (Options: some/all/previews)  >");
             string mode = Console.ReadLine();
 
             if (mode.Equals("all"))
@@ -56,7 +57,7 @@ namespace NugetBulkDoer
                 UnlistSome(PackageID, ApiKey, versions, "-");
 			} else if (mode.Equals("some"))
             {
-                Console.Write($"Please enter the character or substring to search for.");
+                Console.Write($"Please enter the character or substring to search for. \n >");
                 string InputText = Console.ReadLine();
                 UnlistSome(PackageID, ApiKey, versions, InputText);
 			} else {
@@ -98,18 +99,33 @@ namespace NugetBulkDoer
         {
 /*  */      foreach (NuGetVersion version in versions)
             {
-                Console.WriteLine($"Unlisting version {version}. Please press 'y' to continue.");
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                //startInfo.UseShellExecute = false;
-                //startInfo.RedirectStandardInput = true;
+                startInfo.UseShellExecute = false;
+                startInfo.RedirectStandardInput = true;
                 startInfo.RedirectStandardOutput = true;
+                startInfo.RedirectStandardError = true;
                 startInfo.FileName = "CMD.exe";
+
                 process.StartInfo = startInfo;
-                startInfo.Arguments = $"/C dotnet nuget delete {PackageID} {version} -k --non-interactive {ApiKey} -s https://www.nuget.org";
+                //process.ErrorDataReceived += cmd_Error;
+                process.OutputDataReceived += cmd_DataReceived;
+                process.EnableRaisingEvents = true;
+                //startInfo.Arguments = $"/C dotnet nuget delete {PackageID} {version} -k {ApiKey} -s https://www.nuget.org";
                 process.Start();
-                //string output = process.StandardOutput.ReadToEnd();
+                process.BeginOutputReadLine();
+                //process.BeginErrorReadLine();
+
+                process.StandardInput.WriteLine($"dotnet nuget delete {PackageID} {version} -k {ApiKey} -s https://www.nuget.org && exit");
+                process.StandardInput.WriteLine("y");
+                Console.WriteLine($"Version {version} has been unlisted.");
                 process.WaitForExit();
+            }
+
+            static void cmd_DataReceived(object sender, DataReceivedEventArgs e)
+            {
+                Console.WriteLine("Output from other process");
+                Console.WriteLine(e.Data);
             }
 		}
 
